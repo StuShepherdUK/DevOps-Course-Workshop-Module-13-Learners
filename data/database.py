@@ -3,6 +3,7 @@ from pytz import timezone, utc
 from sqlalchemy import desc, asc
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
+from sqlalchemy.sql import text
 
 db = SQLAlchemy()
 from data.order import Order, QUEUED
@@ -59,11 +60,10 @@ def clear_orders(app):
         app.logger.exception("Error clearing data running all: " + str(e))
 
     try:
-        db.session.execute('DELETE FROM orders')
+        db.session.execute(text('DELETE FROM orders'))
     except Exception as e:
         app.logger.exception("Error clearing data running custom SQL: " + str(e))
-
-    
+  
 
     db.session.commit()
 
