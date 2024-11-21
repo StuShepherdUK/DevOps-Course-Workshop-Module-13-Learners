@@ -2,7 +2,7 @@ from data.database import save_order, get_all_orders
 from products import create_product_download
 from apscheduler.schedulers.background import BackgroundScheduler
 import requests
-
+import json
 
 def initialise_scheduled_jobs(app):
     scheduler = BackgroundScheduler()
@@ -29,12 +29,14 @@ def process_orders(app):
             "date": order.date_placed.isoformat(),
         }
 
+        app.logger.info("Payload To Send: " + json.dumps(payload,ident=4))
+
         response = requests.post(
             app.config["FINANCE_PACKAGE_URL"] + "/ProcessPayment",
             json=payload
         )
 
-        app.logger.info("Response from endpoint:" + response.text)
+        app.logger.info("Response from endpoint: " + response.text)
 
         response.raise_for_status()       
 
