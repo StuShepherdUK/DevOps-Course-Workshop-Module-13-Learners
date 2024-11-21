@@ -6,7 +6,7 @@ from sqlalchemy import or_
 from sqlalchemy.sql import text
 
 db = SQLAlchemy()
-from data.order import Order, QUEUED
+from data.order import Order, QUEUED, FAILED
 
 
 def get_all_orders():
