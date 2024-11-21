@@ -12,7 +12,7 @@ def initialise_scheduled_jobs(app):
         trigger="interval",
         seconds=app.config["SCHEDULED_JOB_INTERVAL_SECONDS"],
     )
-    #scheduler.start()
+    scheduler.start()
 
 
 def process_orders(app):
