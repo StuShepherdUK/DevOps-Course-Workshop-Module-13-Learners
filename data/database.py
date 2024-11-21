@@ -48,7 +48,7 @@ def add_orders(orders):
 
 
 def clear_orders():
-    db.session.query(Order).delete()
+    db.session.query(Order).filter(True).delete()
     db.session.commit()
 
 
