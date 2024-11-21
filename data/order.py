@@ -22,7 +22,6 @@ class Order(db.Model):
         self.product = product
         self.customer = customer
         self.date_placed = date_placed
-        self.date_placed = self.date_placed_local()
         self.date_processed = date_processed
         self.status = 'Complete' if self.date_processed else 'Queued'
         self.download = download
