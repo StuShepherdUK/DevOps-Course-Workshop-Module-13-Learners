@@ -44,6 +44,11 @@ def index():
 def count():
     return { 'count': count_orders() }
 
+@app.route("/clear")
+def count():
+    clear_orders(app)
+    return { 'attempting to clear':'?','count': count_orders() }
+
 
 @app.route("/new", methods=["POST"])
 def new_order():
