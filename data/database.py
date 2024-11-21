@@ -22,6 +22,9 @@ def get_orders_to_display():
 def get_queued_count():
     return db.session.query(Order).filter(Order.status == QUEUED).count()
 
+def get_failed_count():
+    return db.session.query(Order).filter(Order.status == FAILED).count()
+
 def get_recently_processed_count():
     return db.session.query(Order).filter(Order.date_processed >= _display_cutoff()).count()
 

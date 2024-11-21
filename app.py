@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 from werkzeug.utils import redirect
 from flask_config import Config
-from data.database import initialise_database, add_order, clear_orders, count_orders, get_orders_to_display, get_queued_count, get_recently_placed_count, get_recently_processed_count
+from data.database import initialise_database, add_order, clear_orders, count_orders, get_orders_to_display, get_queued_count, get_failed_count, get_recently_placed_count, get_recently_processed_count
 from scheduled_jobs import initialise_scheduled_jobs
 from products import create_product_download
 import requests
@@ -25,6 +25,7 @@ initialise_scheduled_jobs(app)
 def index():
     orders = get_orders_to_display()
     queue_count = get_queued_count()
+    failed_count = get_failed_count()
     recently_placed_count = get_recently_placed_count()
     recently_processed_count = get_recently_processed_count()
     scenarios = [
@@ -36,7 +37,7 @@ def index():
     ]
 
     return render_template(
-        "layout.html", orders=orders, queue_count=queue_count, recently_placed_count=recently_placed_count,
+        "layout.html", orders=orders, queue_count=queue_count, failed_count=failed_count, recently_placed_count=recently_placed_count,
         recently_processed_count=recently_processed_count, scenarios=scenarios
     )
 

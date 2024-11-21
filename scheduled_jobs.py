@@ -23,7 +23,6 @@ def process_orders(app):
             return
         
         for order in orders:
-
         # order = orders[0]
 
             payload = {
@@ -48,7 +47,8 @@ def process_orders(app):
                 save_order(order)
             except Exception as err:
                 app.logger.exception("Error processing order {id}: ".format(id = order.id) + str(err))
-
+                order.set_as_failed()
+                save_order(order)
 
 def get_queue_of_orders_to_process():
     allOrders = get_all_orders()
