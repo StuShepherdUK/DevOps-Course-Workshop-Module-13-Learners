@@ -18,7 +18,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 initialise_database(app)
-initialise_scheduled_jobs(app)
+# initialise_scheduled_jobs(app)
 
 
 @app.route("/")
