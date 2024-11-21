@@ -49,21 +49,8 @@ def add_orders(orders):
 
 
 def clear_orders(app):
-    # try:
-    #     db.session.query(Order).filter(True).delete()
-    # except Exception as e:
-    #     app.logger.exception("Error clearing data running Filter True: " + str(e))
-
-    # try:
-    #     db.session.query(Order).all().delete()
-    # except Exception as e:
-    #     app.logger.exception("Error clearing data running all: " + str(e))
-
-    try:
-        db.session.execute(text('DELETE FROM orders'))
-    except Exception as e:
-        app.logger.exception("Error clearing data running custom SQL: " + str(e))
-    db.session.commit()
+    db.session.query(Order).filter(Order.status == QUEUED).delete()
+    return {'request to clear orders':'processing'}
 
 
 def count_orders():

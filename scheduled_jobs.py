@@ -24,15 +24,15 @@ def process_orders(app):
 
         order = orders[0]
 
+        payload = {
+            "product": order.product,
+            "customer": order.customer,
+            "date": order.date_placed_local.isoformat(),
+        }
+
+        #app.logger.info("Payload To Send: " + json.dumps(payload,indent=4))
+
         try:
-            payload = {
-                "product": order.product,
-                "customer": order.customer,
-                "date": order.date_placed_local.isoformat(),
-            }
-
-            app.logger.info("Payload To Send: " + json.dumps(payload,indent=4))
-
             response = requests.post(
                 app.config["FINANCE_PACKAGE_URL"] + "/ProcessPayment",
                 json=payload
