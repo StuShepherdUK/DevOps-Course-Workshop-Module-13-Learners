@@ -47,8 +47,24 @@ def add_orders(orders):
     db.session.commit()
 
 
-def clear_orders():
-    db.session.query(Order).filter(True).delete()
+def clear_orders(app):
+    try:
+        db.session.query(Order).filter(True).delete()
+    except Exception as e:
+        app.logger.exception("Error clearing data running Filter True: " + str(e))
+
+    try:
+        db.session.query(Order).all().delete()
+    except Exception as e:
+        app.logger.exception("Error clearing data running all: " + str(e))
+
+    try:
+        db.session.execute('DELETE FROM orders')
+    except Exception as e:
+        app.logger.exception("Error clearing data running custom SQL: " + str(e))
+
+    
+
     db.session.commit()
 
 

@@ -70,7 +70,7 @@ def set_scenario():
         return redirect('/')
 
     if scenario == 'Reset':
-        clear_orders()
+        clear_orders(app)
 
     response = requests.post(
         app.config["FINANCE_PACKAGE_URL"] + "/scenario",
